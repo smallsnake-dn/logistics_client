@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Calendar from "react-calendar";
 import Row from "./components/Row";
 
@@ -7,10 +7,24 @@ let handleClickCalendar = () => {
   document.querySelector("#calendar").classList.toggle("hidden");
 };
 
+let handleSelectAll = (e) => {
+    let root = document.querySelector("#content_table").children
+    if(e.target.checked == true){
+        for (let i = 0; i < root.length; i++) {
+            root[i].querySelector("input").setAttribute("checked", true)
+        }
+    }else{
+        console.log("check falseeee");
+        for (let i = 0; i < root.length; i++) {
+            root[i].querySelector("input").removeAttribute("checked")
+        }
+   }
+}
+
 let Content = ({ children }) => {
   const [value, onChange] = useState(new Date());
-
-  console.log({ value });
+    let selectAll = useRef(null);
+//   console.log({ selectAll: selectAll.current.children[0].querySelector("input").setAttribute("checked", true) });
 
 
     let rowData = {
@@ -53,7 +67,7 @@ let Content = ({ children }) => {
         {/* head table */}
         <div className="flex flex-row bg-ct-th p-2 border-y-2 border-gray-600 mr-[6px] font-bold">
           <div className="w-6 h-6 flex justify-center items-center">
-            <input type="checkbox" name="check" id="" />
+            <input type="checkbox" name="check" id="" onChange={handleSelectAll}/>
           </div>
           <span className="ml-1 mr-1 w-[0.5px] h-auto bg-white"></span>
           <div className="w-2/12">Ma tuyen</div>
@@ -67,22 +81,8 @@ let Content = ({ children }) => {
           <div className="w-2/12">Thoi gian ket thuc</div>
         </div>
         {/* content table */}
-        <div className="overflow-y-scroll" id="style-3">
-          {/* <div className="flex flex-row p-2">
-            <div className="w-6 h-6 flex justify-center items-center">
-              <input type="checkbox" name="check" id="" />
-            </div>
-            <span className="ml-1 mr-1 w-[0.5px] h-auto bg-white"></span>
-            <div className="w-2/12">Ma tuyen</div>
-            <span className="ml-1 mr-1 w-[0.5px] h-auto bg-white"></span>
-            <div className="w-3/12">Diem xuat phat</div>
-            <span className="ml-1 mr-1 w-[0.5px] h-auto bg-white"></span>
-            <div className="w-2/12">Thoi gian xuat phat</div>
-            <span className="ml-1 mr-1 w-[0.5px] h-auto bg-white"></span>
-            <div className="w-3/12">Diem ket thuc</div>
-            <span className="ml-1 mr-1 w-[0.5px] h-auto bg-white"></span>
-            <div className="w-2/12">Thoi gian ket thuc</div>
-          </div> */}
+        <div className="overflow-y-scroll" id="content_table">
+          <Row data={rowData}/>
           <Row data={rowData}/>
         </div>
       </div>
