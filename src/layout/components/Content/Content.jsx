@@ -24,7 +24,6 @@ let handleSelectAll = (e) => {
 let Content = ({ children }) => {
   const [value, onChange] = useState(new Date());
     let selectAll = useRef(null);
-//   console.log({ selectAll: selectAll.current.children[0].querySelector("input").setAttribute("checked", true) });
 
 
     let rowData = {
