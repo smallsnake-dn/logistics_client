@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <DefaultLayout></DefaultLayout>
-      demo git merge
+      demo git merge v2
     </>
   )
 }
